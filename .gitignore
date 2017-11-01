@@ -1,0 +1,8 @@
+.idea/
+target/
+*.iml
+*.class
+.classpath
+.project
+.settings/
+.settings/org.eclipse.wst.common.component
