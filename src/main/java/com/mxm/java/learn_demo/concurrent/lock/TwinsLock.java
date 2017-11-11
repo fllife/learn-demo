@@ -74,13 +74,11 @@ public class TwinsLock implements Lock {
 	}
 
 	public void lock() {
-		while (sync.tryAcquireShared(1) < 0) {
-			System.out.println("lock...");
-		}
+		sync.acquireShared(1);
 	}
     
 	public void unlock() {
-        sync.tryReleaseShared(1);
+        sync.releaseShared(1);
 	}
 	
 	public void lockInterruptibly() throws InterruptedException {
@@ -110,8 +108,8 @@ public class TwinsLock implements Lock {
 				public void run() {
 				    lock.lock();
 					System.out.println("线程-" +number + "获取锁");
-					lock.unlock();
-					System.out.println("线程-" +number + "释放锁");
+					/*lock.unlock();
+					System.out.println("线程-" +number + "释放锁");*/
 				}
 			});
 	    }
