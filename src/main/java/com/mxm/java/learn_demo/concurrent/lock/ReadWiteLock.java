@@ -56,5 +56,20 @@ public class ReadWiteLock {
 			witeLock.unlock();
 		}
 	}
+	
+	/**
+	 * 清楚缓存
+	 * void
+	 * @author maxm@uubee.com
+	 * @date 2017年11月11日 下午12:14:53
+	 */
+	public void clear() {
+		witeLock.lock();
+		try {
+			cache.clear();
+		} finally {
+			witeLock.unlock();
+		}
+	}
 
 }
