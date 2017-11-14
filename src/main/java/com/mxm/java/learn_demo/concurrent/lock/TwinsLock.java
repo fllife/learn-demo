@@ -12,6 +12,7 @@ import java.util.concurrent.SynchronousQueue;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.AbstractQueuedSynchronizer;
+import java.util.concurrent.locks.AbstractQueuedSynchronizer.ConditionObject;
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.Lock;
 
@@ -85,7 +86,7 @@ public class TwinsLock implements Lock {
 
 	}
 	public Condition newCondition() {
-		return null;
+		return sync.new ConditionObject();
 	}
 
 	public boolean tryLock() {
