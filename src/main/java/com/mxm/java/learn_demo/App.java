@@ -1,13 +1,20 @@
 package com.mxm.java.learn_demo;
 
+import java.util.concurrent.SynchronousQueue;
+
 /**
  * Hello world!
  *
  */
 public class App 
-{
-    public static void main( String[] args )
-    {
+{   
+	private static ThreadLocal<String> local = new ThreadLocal<String>();
+    public static void main( String[] args ) throws Exception
+    {   
+    	local.set("123");
+    	local.get();
         System.out.println( "Hello World!" );
+        SynchronousQueue<String> queue = new SynchronousQueue<String>();
+       queue.put("456");
     }
 }

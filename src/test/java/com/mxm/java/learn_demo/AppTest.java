@@ -7,6 +7,10 @@
 */
 package com.mxm.java.learn_demo;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+
 import org.junit.Test;
 import org.springframework.mock.web.MockServletContext;
 import org.springframework.web.context.support.XmlWebApplicationContext;
@@ -25,5 +29,8 @@ public class AppTest extends BaseTest {
 	   ctx.setConfigLocations(new String[] {"applicationContext.xml"});
 	   ctx.setServletContext(new MockServletContext());
 	   ctx.refresh(); 
+	   
+	   Map<String, String> hashMap = new HashMap<String, String>();
+	   Map<String, String> concurrentHashMap = new ConcurrentHashMap<String, String>();
     }
 }

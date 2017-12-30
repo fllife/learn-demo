@@ -6,16 +6,14 @@
 * @version V1.0   
 */
 package com.mxm.java.learn_demo.zookeeper;
-
-import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
-
 import org.apache.zookeeper.CreateMode;
 import org.apache.zookeeper.WatchedEvent;
 import org.apache.zookeeper.Watcher;
 import org.apache.zookeeper.ZooDefs;
 import org.apache.zookeeper.ZooKeeper;
+import org.apache.zookeeper.data.Stat;
 
 /**  
  * @author maxm@uubee.com
@@ -28,9 +26,10 @@ public class ZKTest {
 	    ZooKeeper zk = new ZooKeeper("localhost:2181", 30000, new Watcher() {  
 	        // 监控所有被触发的事件  
 	        public void process(WatchedEvent event) {  
-	            System.out.println("状态:" + event.getState()+":"+event.getType()+":"+event.getWrapper()+":"+event.getPath());  
+	           // System.out.println("状态:" + event.getState()+":"+event.getType()+":"+event.getWrapper()+":"+event.getPath());  
 	        }  
 	    });  
+	    Stat stat = zk.exists(ROOT, true);
 	    // 创建一个总的目录ktv，并不控制权限，这里需要用持久化节点，不然下面的节点创建容易出错  
 	    zk.create(ROOT, "root-ktv".getBytes(), ZooDefs.Ids.OPEN_ACL_UNSAFE, CreateMode.PERSISTENT);  
 	  
@@ -41,17 +40,19 @@ public class ZKTest {
 	    zk.create(ROOT+"/北京KTV", "北京KTV".getBytes(), ZooDefs.Ids.OPEN_ACL_UNSAFE, CreateMode.EPHEMERAL);  
 	  
 	    // 同理，我可以在北京开多个，EPHEMERAL_SEQUENTIAL  session 过期自动删除，也会加数字的后缀  
-	    zk.create(ROOT+"/北京KTV-分店", "北京KTV-分店".getBytes(), ZooDefs.Ids.OPEN_ACL_UNSAFE, CreateMode.EPHEMERAL_SEQUENTIAL);  
-	  
+	    zk.create(ROOT+"/北京KTV-分店", "北京KTV-分店".getBytes(), ZooDefs.Ids.OPEN_ACL_UNSAFE, CreateMode.EPHEMERAL_SEQUENTIAL); 
+	   
 	    // 我们也可以 来看看 一共监视了多少家的ktv  
 	    List<String> ktvs = zk.getChildren(ROOT, true);  
-	    System.out.println(Arrays.toString(ktvs.toArray()));  
-//	    for(String node : ktvs){  
-//	        // 删除节点  
-//	        zk.delete(ROOT+"/"+node,-1);  
-//	    }  
+	
+	    System.out.println(Arrays.toString(ktvs.toArray())); 
+	    for(String node : ktvs){  
+	        // 删除节点  
+	        zk.delete(ROOT+"/"+node,-1);  
+	    }  
 	    // 根目录得最后删除的  
-	    //zk.delete(ROOT, -1);  
+	    zk.delete(ROOT, -1); 
+	  
 	    zk.close();  
 	}
 }
