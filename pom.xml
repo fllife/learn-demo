@@ -84,5 +84,16 @@
 			<artifactId>jackson-databind</artifactId>
 			<version>2.9.0</version>
 		</dependency>
+		<!-- groovy -->
+		<dependency>  
+   			<groupId>org.codehaus.groovy</groupId>  
+            <artifactId>groovy</artifactId>  
+            <version>2.1.6</version>  
+        </dependency>  
+		<dependency>  
+		    <groupId>org.codehaus.groovy</groupId>  
+		    <artifactId>groovy-jsr223</artifactId>  
+		    <version>2.1.6</version>  
+		</dependency>  
 	</dependencies>
 </project>
