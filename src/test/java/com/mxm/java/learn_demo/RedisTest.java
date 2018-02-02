@@ -1,5 +1,5 @@
 /**   
-* @Title: RedisTest.java 
+* @Title: RedisDistributedLock.java
 * @Package com.mxm.java.learn_demo  
 * @author maxm@uubee.com  
 * @date 2017年11月1日 下午4:24:43 
