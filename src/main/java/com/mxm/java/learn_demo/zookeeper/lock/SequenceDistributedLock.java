@@ -62,8 +62,6 @@ public class SequenceDistributedLock {
    public void lock() throws KeeperException, InterruptedException {
        String path = zooKeeper.create(LOCK_PATH, String.valueOf(this.currentThread.getId()).getBytes(), ZooDefs.Ids.OPEN_ACL_UNSAFE, CreateMode.EPHEMERAL_SEQUENTIAL);
        path = path.substring(path.lastIndexOf("/") + 1);
-       String lastWatchPath = "";
-       boolean isNotify = false;
        while (true) {
            List<String> children = zooKeeper.getChildren(ROOT_PATH,false);
            if (StringUtils.isEmpty(children)) {
