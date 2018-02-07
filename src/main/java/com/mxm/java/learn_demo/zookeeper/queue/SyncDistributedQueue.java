@@ -9,6 +9,8 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 /**
+ * 同步队列类似于并发编程中CycleBarrier
+ * 当指定数目的线程都准备好后，一起开始执行
  * Create by maxianming 2018/2/6 15:16
  */
 public class SyncDistributedQueue {
@@ -17,9 +19,9 @@ public class SyncDistributedQueue {
     private static int TIME_OUT = 3000;
     private static ZooKeeper zooKeeper;
     // 根节点
-    private static String SYNC_PATH = "/synchronized";
+    private static String ROOT_PATH = "/synchronized";
     // 队列元素
-    private static String MEMBER_PATH = SYNC_PATH + "/member_";
+    private static String MEMBER_PATH = ROOT_PATH + "/member_";
     // 队列节点
     private static String START_PATH = "/start";
     // 同步队列大小
@@ -41,8 +43,8 @@ public class SyncDistributedQueue {
 
     public static synchronized void init() {
         try {
-            if (zooKeeper.exists(SYNC_PATH,false) == null) {
-                zooKeeper.create(SYNC_PATH, SYNC_PATH.getBytes(), ZooDefs.Ids.OPEN_ACL_UNSAFE, CreateMode.PERSISTENT);
+            if (zooKeeper.exists(ROOT_PATH,false) == null) {
+                zooKeeper.create(ROOT_PATH, ROOT_PATH.getBytes(), ZooDefs.Ids.OPEN_ACL_UNSAFE, CreateMode.PERSISTENT);
             }
             if (zooKeeper.exists(START_PATH, false) != null) {
                 zooKeeper.delete(START_PATH, -1);
@@ -74,7 +76,7 @@ public class SyncDistributedQueue {
            return;
        }
        zooKeeper.create(MEMBER_PATH, MEMBER_PATH.getBytes(), ZooDefs.Ids.OPEN_ACL_UNSAFE, CreateMode.EPHEMERAL_SEQUENTIAL);
-       List<String> children = zooKeeper.getChildren(SYNC_PATH, false);
+       List<String> children = zooKeeper.getChildren(ROOT_PATH, false);
        if (children.size() >= size ) {
            if (zooKeeper.exists(START_PATH, false) == null) {
                zooKeeper.create(START_PATH, START_PATH.getBytes(), ZooDefs.Ids.OPEN_ACL_UNSAFE, CreateMode.PERSISTENT);
