@@ -3,6 +3,9 @@ package com.mxm.java.learn_demo.zookeeper.lock;
 import org.apache.zookeeper.*;
 import org.apache.zookeeper.data.Stat;
 
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
 /**
  * 优点：实现比较简单，有通知机制，能提供较快的响应，有点类似reentrantlock的思想，对于节点删除失败的场景由Session超时保证节点能够删除掉。
  * 缺点：重量级，同时在大量锁的情况下会有“惊群”的问题。
@@ -94,16 +97,16 @@ public class UniqueDistributedLock {
             zooKeeper.delete(LOCK_PATH,-1);
             System.out.println(this.currentThread.getName() + "释放锁");
         } else {
-            System.out.println(this.currentThread.getName() + "未持有锁");
+            throw new RuntimeException(this.currentThread.getName() + "未持有锁");
         }
     }
 
     public static void main(String[] args) throws Exception {
         // 1、获取分布式锁
-       /* ExecutorService service = Executors.newCachedThreadPool();
+        ExecutorService service = Executors.newCachedThreadPool();
         for (int i = 0; i < 5; i++) {
             service.execute(() -> {
-                DistributedLock lock = new DistributedLock();
+                UniqueDistributedLock lock = new UniqueDistributedLock();
                 try {
                     lock.lock();
                     Thread.sleep(1000);
@@ -118,10 +121,10 @@ public class UniqueDistributedLock {
                 }
 
             });
-        }*/
+        }
 
        // 2、持有锁的线程才能释放锁了，用线程ID标识持有锁的线程，更可靠的可以使用UUID
-        new Thread(() -> {
+        /*new Thread(() -> {
             try {
                 new UniqueDistributedLock().lock();
             } catch (KeeperException e) {
@@ -139,7 +142,7 @@ public class UniqueDistributedLock {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-        }).start();
+        }).start();*/
 
     }
 }
