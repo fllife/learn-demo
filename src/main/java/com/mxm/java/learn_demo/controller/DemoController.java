@@ -20,6 +20,6 @@ public class DemoController {
 	
 	@RequestMapping("index")
 	public String demo(){
-		return "/index.jsp";
+		return "/index";
 	}
 }
