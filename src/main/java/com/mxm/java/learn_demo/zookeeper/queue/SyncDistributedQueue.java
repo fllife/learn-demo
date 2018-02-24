@@ -25,7 +25,7 @@ public class SyncDistributedQueue {
     // 队列节点
     private static String START_PATH = "/start";
     // 同步队列大小
-    private volatile int size = 0;
+    private int size ;
     // 锁对象
     private Object lock = new Object();
 
@@ -90,9 +90,9 @@ public class SyncDistributedQueue {
 
     public static void main(String[] args) {
         ExecutorService executorService = Executors.newFixedThreadPool(20);
+        SyncDistributedQueue syncQueue = new SyncDistributedQueue(5);
         for (int i = 0; i < 5; i++) {
             executorService.execute(()->{
-                SyncDistributedQueue syncQueue = new SyncDistributedQueue(5);
                 System.out.println(Thread.currentThread().getName() + "开始执行");
                 try {
                     Thread.sleep(new Random().nextInt(3000));
