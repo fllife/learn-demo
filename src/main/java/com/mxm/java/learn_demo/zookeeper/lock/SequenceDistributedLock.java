@@ -59,9 +59,15 @@ public class SequenceDistributedLock {
         }
    }
 
+    /**
+     * 获得锁
+     * @throws KeeperException
+     * @throws InterruptedException
+     */
    public void lock() throws KeeperException, InterruptedException {
        String path = zooKeeper.create(LOCK_PATH, String.valueOf(this.currentThread.getId()).getBytes(), ZooDefs.Ids.OPEN_ACL_UNSAFE, CreateMode.EPHEMERAL_SEQUENTIAL);
        path = path.substring(path.lastIndexOf("/") + 1);
+       System.out.println("线程:" + Thread.currentThread().getName() + ",创建路径:" + path);
        while (true) {
            List<String> children = zooKeeper.getChildren(ROOT_PATH,false);
            if (StringUtils.isEmpty(children)) {
@@ -81,8 +87,8 @@ public class SequenceDistributedLock {
                    watchPath(ROOT_PATH + "/" + watchPath);
 
                    // 3、线程阻塞
-                   if (!lock.isNotify()) {
-                       synchronized (lock) {
+                   synchronized (lock) {
+                       if (!lock.isNotify()) {
                            lock.wait();
                        }
                    }
@@ -100,12 +106,15 @@ public class SequenceDistributedLock {
      * @throws InterruptedException
      */
     private String watchPath(String watchPath) throws KeeperException, InterruptedException {
+        // 1、设置通知标识
+        lock.setNotify(false);
+        // 2、监控指定节点
         Stat result = zooKeeper.exists(watchPath, new Watcher() {
             @Override
             public void process(WatchedEvent event) {
                  if(event.getType() == Event.EventType.NodeDeleted) {
                      synchronized (lock) {
-                         System.out.println(event.getPath() + ":路径被删除,通知线程:" + currentThread.getName());
+                         System.out.println("删除路径:"+ event.getPath() + ",通知线程:" + currentThread.getName());
                          lock.notify();
                          lock.setNotify(true);
                      }
@@ -137,7 +146,11 @@ public class SequenceDistributedLock {
         return children.get(0);
     }
 
-
+    /**
+     * 释放锁
+     * @throws KeeperException
+     * @throws InterruptedException
+     */
     public void unLock() throws KeeperException, InterruptedException {
        List<String> children = zooKeeper.getChildren(ROOT_PATH,false);
        Collections.sort(children);
@@ -148,6 +161,8 @@ public class SequenceDistributedLock {
            if (threadId == this.currentThread.getId()) {
                zooKeeper.delete(ROOT_PATH + "/" + minPath,-1);
                System.out.println(this.currentThread.getName() + "释放锁");
+           } else {
+               throw new RuntimeException("不能释放自己未持有的锁");
            }
        }
    }
