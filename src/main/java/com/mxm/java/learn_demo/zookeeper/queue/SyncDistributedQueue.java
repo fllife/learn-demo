@@ -65,7 +65,7 @@ public class SyncDistributedQueue {
     public void await() throws KeeperException, InterruptedException {
        Stat znodeStat = zooKeeper.exists(START_PATH, (WatchedEvent event) -> {
            if (event.getType() == Watcher.Event.EventType.NodeCreated) {
-               System.out.println("start path create");
+               System.out.println("start notify..");
                synchronized (lock) {
                    lock.notify();
                }
@@ -90,14 +90,14 @@ public class SyncDistributedQueue {
 
     public static void main(String[] args) {
         ExecutorService executorService = Executors.newFixedThreadPool(20);
-        SyncDistributedQueue syncQueue = new SyncDistributedQueue(5);
         for (int i = 0; i < 5; i++) {
             executorService.execute(()->{
-                System.out.println(Thread.currentThread().getName() + "开始执行");
+                SyncDistributedQueue syncQueue = new SyncDistributedQueue(5);
+                System.out.println(Thread.currentThread().getName() + "准备执行");
                 try {
                     Thread.sleep(new Random().nextInt(3000));
                     syncQueue.await();
-                    System.out.println(Thread.currentThread().getName() + "结束执行");
+                    System.out.println(Thread.currentThread().getName() + "开始执行");
                 } catch (KeeperException e) {
                     e.printStackTrace();
                 } catch (InterruptedException e) {
