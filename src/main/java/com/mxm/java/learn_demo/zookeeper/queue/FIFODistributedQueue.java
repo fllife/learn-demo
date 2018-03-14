@@ -62,6 +62,7 @@ public class FIFODistributedQueue {
      */
     public void offer(Object object) throws Exception {
         zooKeeper.create(QUEUE_PATH, objectToBytes(object), ZooDefs.Ids.OPEN_ACL_UNSAFE, CreateMode.EPHEMERAL_SEQUENTIAL);
+        System.out.println("生产者-" +  object+ "-生产数据++:" + object);
     }
 
     /**
@@ -138,7 +139,6 @@ public class FIFODistributedQueue {
             executorService.execute(() -> {
                 FIFODistributedQueue queue = new FIFODistributedQueue();
                 try {
-                    System.out.println("生产者-" + j + "-生产数据++:" + j);
                     queue.offer(j);
                 } catch (Exception e) {
                     e.printStackTrace();
