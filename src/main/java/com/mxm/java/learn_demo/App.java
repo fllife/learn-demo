@@ -16,5 +16,8 @@ public class App
         System.out.println( "Hello World!" );
         SynchronousQueue<String> queue = new SynchronousQueue<String>();
        queue.put("456");*/
+        String cityId = "1,2,3,4,6";
+        String[] result = cityId.split("1");
+        System.out.println(result);
     }
 }

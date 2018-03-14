@@ -125,6 +125,7 @@ public class SequenceDistributedLock {
         if (result == null) {
             synchronized (lock) {
                 lock.notify();
+                lock.setNotify(true);
             }
         }
         return watchPath;
