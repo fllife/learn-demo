@@ -133,12 +133,12 @@ public class FIFODistributedQueue {
 
     public static void main(String[] args) {
         ExecutorService executorService = Executors.newCachedThreadPool();
-        for (int i = 0; i < 12; i++) {
+        for (int i = 0; i < 10; i++) {
             final int j = i;
             executorService.execute(() -> {
                 FIFODistributedQueue queue = new FIFODistributedQueue();
                 try {
-                    System.out.println("生产者-" + j + "-生产数据+++");
+                    System.out.println("生产者-" + j + "-生产数据++:" + j);
                     queue.offer(j);
                 } catch (Exception e) {
                     e.printStackTrace();
