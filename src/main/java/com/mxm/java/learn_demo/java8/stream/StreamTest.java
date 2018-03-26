@@ -1,5 +1,7 @@
 package com.mxm.java.learn_demo.java8.stream;
 
+import com.alibaba.fastjson.JSON;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -66,6 +68,21 @@ public class StreamTest {
 	    	  .limit(10)
 	    	  .forEach(System.out::println);
 	    System.out.println("---------------");
+        // 7、操作顺序
+		List<String> names =
+				menu.parallelStream()
+						.filter(d -> {
+							System.out.println("filtering " + d.getName() + ":" + d.getCalories());
+							return d.getCalories() > 300;
+						})
+						.map(d -> {
+							System.out.println("mapping" + d.getName());
+							return d.getName();
+						})
+						.limit(3)
+						.collect(Collectors.toList());
+		System.out.println(JSON.toJSON(names));
+		System.out.println("---------------");
 	    
 	}
 }

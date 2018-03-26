@@ -16,8 +16,14 @@ public class App
         System.out.println( "Hello World!" );
         SynchronousQueue<String> queue = new SynchronousQueue<String>();
        queue.put("456");*/
-        String cityId = "1,2,3,4,6";
-        String[] result = cityId.split("1");
-        System.out.println(result);
+   /*     String cityId = ",1,2,3,4,6,";
+        String[] result = cityId.split(",");
+        result = StringUtils.split(cityId,",");
+        System.out.println(result.length);*/
+
+        int num = (int) (Math.random() * (1 + 1));
+        System.out.println(num);
+        String[] str = "hello".split("");
+        System.out.println(str[0]);
     }
 }
