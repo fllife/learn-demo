@@ -1,5 +1,7 @@
 package com.mxm.java.learn_demo.concurrent.lock;
 
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.AbstractQueuedSynchronizer;
 import java.util.concurrent.locks.Condition;
@@ -73,4 +75,28 @@ public class Mutex {
 		return sync.tryAcquireNanos(1, unit.toNanos(timeout));
 	}
 
+	static class Test {
+
+		public static void main(String[] args) {
+			Mutex mutex = new Mutex();
+			ExecutorService executorService = Executors.newCachedThreadPool();
+			for (int i = 0; i < 2; i ++) {
+				final int j = i;
+				executorService.execute(() -> {
+					System.out.println("start lock number : " + j);
+					mutex.lock();
+					System.out.println("obtain lock number : " + j);
+					try {
+						Thread.sleep(30000);
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+					mutex.unlock();
+				});
+			}
+
+
+
+		}
+	}
 }
