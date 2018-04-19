@@ -6,14 +6,11 @@
 * @version V1.0   
 */
 package com.mxm.java.learn_demo.zookeeper;
+import org.apache.zookeeper.*;
+import org.apache.zookeeper.data.Stat;
+
 import java.util.Arrays;
 import java.util.List;
-import org.apache.zookeeper.CreateMode;
-import org.apache.zookeeper.WatchedEvent;
-import org.apache.zookeeper.Watcher;
-import org.apache.zookeeper.ZooDefs;
-import org.apache.zookeeper.ZooKeeper;
-import org.apache.zookeeper.data.Stat;
 
 /**  
  * @author maxm@uubee.com
@@ -23,7 +20,7 @@ public class ZKTest {
 	public static final String ROOT = "/root-ktv";  
 	public static void main(String[] args) throws Exception {
 	    // 创建一个与服务器的连接  
-	    ZooKeeper zk = new ZooKeeper("localhost:2181", 30000, new Watcher() {  
+	    ZooKeeper zk = new ZooKeeper("118.190.204.179:2181", 30000, new Watcher() {
 	        // 监控所有被触发的事件  
 	        public void process(WatchedEvent event) {  
 	           // System.out.println("状态:" + event.getState()+":"+event.getType()+":"+event.getWrapper()+":"+event.getPath());  

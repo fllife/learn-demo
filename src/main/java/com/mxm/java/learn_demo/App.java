@@ -7,8 +7,7 @@ package com.mxm.java.learn_demo;
 public class App 
 {   
 	private static ThreadLocal<String> local = new ThreadLocal<String>();
-    public static void main( String[] args ) throws Exception
-    {   
+    public static void main( String[] args ) throws Exception {
     	/*Map<String, String> map = new ConcurrentHashMap<String, String>();
     	map.size();
     	local.set("123");
@@ -21,9 +20,11 @@ public class App
         result = StringUtils.split(cityId,",");
         System.out.println(result.length);*/
 
-        int num = (int) (Math.random() * (1 + 1));
+      /*  int num = (int) (Math.random() * (1 + 1));
         System.out.println(num);
         String[] str = "hello".split("");
-        System.out.println(str[0]);
+        System.out.println(str[0]);*/
+        Long test = 0123L;
+        System.out.println(test);
     }
 }
