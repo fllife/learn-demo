@@ -28,12 +28,11 @@ public class RedisDistributedLock {
 	static {
 		jedisPoolConfig = new JedisPoolConfig();
 		jedisPoolConfig.setMaxTotal(1000);
-	    jedisPool = new JedisPool(jedisPoolConfig,"118.190.204.179",6379);
+	    jedisPool = new JedisPool(jedisPoolConfig,"118.190.204.179",6379, 2000, "redis-mxm");
 	}
 
 	public Jedis getJedis() {
 		Jedis jedis = jedisPool.getResource();
-		jedis.auth("redis-mxm");
 		return  jedis;
 	}
 
