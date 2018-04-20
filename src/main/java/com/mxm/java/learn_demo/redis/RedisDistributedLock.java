@@ -32,8 +32,11 @@ public class RedisDistributedLock {
 	}
 
 	public Jedis getJedis() {
-		return jedisPool.getResource();
+		Jedis jedis = jedisPool.getResource();
+		jedis.auth("redis-mxm");
+		return  jedis;
 	}
+
 	public boolean lock() {
 		Jedis jedis = getJedis();
 	    while(true) {
