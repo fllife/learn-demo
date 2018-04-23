@@ -28,7 +28,7 @@ public class RedisDistributedLock {
 	static {
 		jedisPoolConfig = new JedisPoolConfig();
 		jedisPoolConfig.setMaxTotal(1000);
-	    jedisPool = new JedisPool(jedisPoolConfig,"118.190.204.179",6379, 2000, "redis-mxm");
+	    jedisPool = new JedisPool(jedisPoolConfig,"118.190.204.179",6380, 2000, "redis-mxm");
 	}
 
 	public Jedis getJedis() {

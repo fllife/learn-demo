@@ -18,8 +18,9 @@ public class Producer {
 
     public static void main(String[] args) throws MQClientException, RemotingException, InterruptedException, MQBrokerException {
         DefaultMQProducer producer = new DefaultMQProducer("ProducerGroupName");
-        producer.setNamesrvAddr("127.0.0.1:9876");
+        producer.setNamesrvAddr("118.190.204.179:9876");
         producer.setRetryTimesWhenSendFailed(3);
+        producer.setVipChannelEnabled(false);
         producer.start();
         Message msg = new Message("TopicTest1",// topic
                 "TagA",// tag
