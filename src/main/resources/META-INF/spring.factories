@@ -1,0 +1,3 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+com.mxm.java.learn_demo.tools.monitor.configure.DingtalkAutoConfigure,\
+com.mxm.java.learn_demo.tools.CommonAspect

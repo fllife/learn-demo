@@ -1,4 +1,4 @@
-package com.mxm.java.learn_demo.valid.exception;
+package com.mxm.java.learn_demo.tools.exception;
 
 /**
  * 基本异常
