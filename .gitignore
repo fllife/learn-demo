@@ -3,5 +3,6 @@ target/
 *.class
 .classpath
 .project
+.idea/*
 .settings/
 .settings/org.eclipse.wst.common.component

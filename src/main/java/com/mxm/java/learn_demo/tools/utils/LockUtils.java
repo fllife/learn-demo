@@ -1,4 +1,4 @@
-package com.mxm.java.learn_demo.common.utils;
+package com.mxm.java.learn_demo.tools.utils;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.redis.connection.RedisConnection;
@@ -34,7 +34,7 @@ public class LockUtils {
      * @param expireTime 超期时间 ms
      * @return 是否获取成功
      */
-    public  void lock(String lockKey, String requestId, int expireTime) throws InterruptedException {
+    public void lock(String lockKey, String requestId, int expireTime) throws InterruptedException {
         RedisConnection redisConnection = getRedisConnection();
         try {
           while (true) {
@@ -93,11 +93,17 @@ public class LockUtils {
         return redisConnection;
     }
 
-    public static void main(String[] args) {
-        JedisConnectionFactory jedisConnectionFactory = new JedisConnectionFactory();
-        jedisConnectionFactory.setPort(6380);
-        jedisConnectionFactory.setHostName("*");
-        jedisConnectionFactory.setPassword("*");
+    /*public static void main(String[] args) {
+       JedisConnectionFactory jedisConnectionFactory = new JedisConnectionFactory();
+        jedisConnectionFactory.setPort(6379);
+        jedisConnectionFactory.setHostName("101.198.190.171");
+        jedisConnectionFactory.setPassword("4497bbd5cf94ea99");
+
+        JedisPoolConfig poolConfig = new JedisPoolConfig();
+        poolConfig.setMaxTotal(40);
+        poolConfig.setMaxIdle(10);
+        poolConfig.setMinIdle(5);
+        jedisConnectionFactory.setPoolConfig(poolConfig);
         jedisConnectionFactory.afterPropertiesSet();
         LockUtils lockUtils =new LockUtils(jedisConnectionFactory);
         Thread thread = new Thread(() -> {
@@ -108,12 +114,11 @@ public class LockUtils {
             }
             System.out.println("加锁结果:" + "成功");
 
-        });
+            boolean result = lockUtils.unLock("lock", "123");
+
+            System.out.println("解锁结果:" + result);
+        },"jedis-thread");
         thread.start();
-        thread.interrupt();
-
-
-
-    }
+    }*/
 
 }

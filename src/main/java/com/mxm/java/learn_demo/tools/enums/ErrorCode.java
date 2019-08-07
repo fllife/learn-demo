@@ -8,8 +8,12 @@ public enum ErrorCode {
     INVALIAD_PARAM("参数不合法"),
     UNKONWN_ERROR("系统异常"),
     AES_ENCRYPT_ERROR("AES加密异常"),
-    AES_DECRYPT_ERROR("AES解密异常")
-    ;
+    AES_DECRYPT_ERROR("AES解密异常"),
+    NULL_OBJ_ARGUMENT("空对象"),
+    SYS_EXCEPTION("系统异常"),
+    EMPTY_COLLECTION_ARGUMENT("集合为空"),
+    DATE_PARSE_ERROR("日期格式化错误");
+
     /**
      * 错误描述
      */

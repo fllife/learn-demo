@@ -1,4 +1,4 @@
-package com.mxm.java.learn_demo.tools.monitor;
+package com.mxm.java.learn_demo.tools.monitor.exception;
 
 import com.mxm.java.learn_demo.tools.helper.NameThreadFactory;
 import lombok.extern.slf4j.Slf4j;

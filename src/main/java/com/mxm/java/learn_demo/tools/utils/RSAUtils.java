@@ -240,6 +240,15 @@ public class RSAUtils {
         }
     }
 
+    /*  public static void main(String[] args) {
+        String content = "datatest";
+        String priKey = "MIICeAIBADANBgkqhkiG9w0BAQEFAASCAmIwggJeAgEAAoGBAMLKrGUYIeGREAw2rfk/shUwT0hjZaScSOhz1QA1mSv5AVD90ohAtWWZLVPPG6mvKCnCDJJIPeb+H3nSt/7yOSz307RSsQ1IY8p4nYYeD20467lyt1S9CXDbLlSzC+5bB5gTVmwLT4X5WZtjgzlT8Fj4NrIuoSKngQM7AaUMdVI9AgMBAAECgYEAmFVPhK/erzx2xFZur6G0bwWcuwugjZ77FW6ggM1pwA23jdMyNgQE2DN2UziAda7ZRe7PTgbZAjByBR9ZbTOYqcXU8GwFMgjn8pyAa37+ppBofHhpxk8b1xEOaQTIk5jgGlmNMOksOkcqisKzAuj+S+bN4tgKsGWhTOO7fqTNiYECQQD+cn3RtH8sSur4Fk+v17qP47895rXGBNcqq65mAFz7B36tvtr5zETlSgNPVB51SsACW/AWcG4sBYsgIg4CjmklAkEAw/r8RzeVu0P93nUmpkUYs4uUTihwKwOwvdlzegL0aDvIT5jAzt/sP19xfehjhBKkbFhh4fAMaVUOOjMdAEp1OQJBAPo0IzzevF8VnFAvwFQtUirDzP5Vq1D42YwAHhH3MXc3O34mOrWABA9j5DVRhlHYG082kLPAAtYO7Wu/kP86gnECQCipxPqJ3/lxDBXCPPi20X8/cNAet9dU9rENk1Y3krql3NQXH7pM39nuVcAIHc3jiFYqqHSWuByK117gCB5tVJECQQCZ/XdgEZd+t0UEwj0koKqCKgviFFxtMznGSIF40sqrhohvNURq5yyfPzIj3c5GLE9/dAJpnNmLKa3sTYohmmAk";
+        String sign = rsaSign(content, priKey, "UTF-8");
 
+        System.out.println("sign:" + sign);
+          String pubKey = "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCB43H__UQMONWmKqA1IEazB3tfz4hT34obIvTF2SQYiAws4L63C1u1YumhHADRaAjuCa1fGQ3B--hayE_xUDCmniEwsovX2ndg73tGIyEwW2Nji1NIDRAgHxPQsktO6f9Ucvmwwi5lJEIx_Y3HeNR_fM6CobYvCgsWW6OLhhq7ZwIDAQAB";
+        boolean result = rsaCheckContent(content, sign, pubKey, "UTF-8");
+        System.out.println("验签结果:" + result);
+    }*/
 
 }

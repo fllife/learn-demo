@@ -1,4 +1,4 @@
-package com.mxm.java.learn_demo.common.utils;
+package com.mxm.java.learn_demo.tools.utils;
 
 import java.util.UUID;
 
